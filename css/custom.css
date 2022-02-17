@@ -1,0 +1,47 @@
+
+input[type='radio'] {
+  display: none;
+}
+input[type='radio']:checked + label span {
+  transform: scale(1.25);
+  outline: 2px solid #000000;
+  outline-offset: 2px;
+}
+/* input[type='radio']:checked + label .red {
+  outline: 2px solid #000000;
+  outline-offset: 2px;
+}
+input[type='radio']:checked + label .orange {
+  outline: 2px solid #000000;
+  outline-offset: 2px;
+}
+input[type='radio']:checked + label .yellow {
+  outline: 2px solid #000000;
+  outline-offset: 2px;
+} */
+
+label {
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+label:hover span {
+  transform: scale(1.25);
+}
+label span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.2s ease-in-out;
+}
+label span.red {
+  background: #DB2828;
+}
+label span.orange {
+  background: #F2711C;
+}
+label span.yellow {
+  background: #FBBD08;
+}
