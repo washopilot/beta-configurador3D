@@ -1129,7 +1129,8 @@
                 data-plugin-sticky
                 data-plugin-options="{'minWidth': 991, 'containerSelector': '.container', 'padding': {'top': 110}}"
               >
-                <img class="img-fluid mb-4 border-radius-0" src="img/blog/square/blog-2.jpg" alt="Project Image" />
+                <!-- <img class="img-fluid mb-4 border-radius-0" src="img/blog/square/blog-2.jpg" alt="Project Image" /> -->
+                <canvas id="c"></canvas>
               </div>
             </div>
             <div class="col-lg-6">
@@ -1594,5 +1595,13 @@
 
     <!-- Theme Initialization Files -->
     <script src="js/theme.init.js"></script>
+
+    <!-- Threejs scripts and cdns -->
+    <script src='https://unpkg.com/three@0.127.0/build/three.js'></script>
+    <script src='https://cdn.jsdelivr.net/gh/mrdoob/three.js@r92/examples/js/loaders/GLTFLoader.js'></script>
+    <script src='https://cdn.jsdelivr.net/gh/mrdoob/three.js@r92/examples/js/loaders/DRACOLoader.js'></script>
+    <script src='https://threejs.org/examples/js/controls/OrbitControls.js'></script>
+    <script src="modeler/script.js"></script>
+
   </body>
 </html>

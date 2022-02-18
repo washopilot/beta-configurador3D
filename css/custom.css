@@ -1,4 +1,3 @@
-
 input[type='radio'] {
   display: none;
 }
@@ -37,11 +36,20 @@ label span {
   transition: transform 0.2s ease-in-out;
 }
 label span.red {
-  background: #DB2828;
+  background: #db2828;
 }
 label span.orange {
-  background: #F2711C;
+  background: #f2711c;
 }
 label span.yellow {
-  background: #FBBD08;
+  background: #fbbd08;
+}
+
+/* Canvas del Modelador  */
+#c {
+  width: 100%;
+  height: 100%;
+  display: block;
+  top: 0;
+  left: 0;
 }
