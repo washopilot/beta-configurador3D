@@ -6,18 +6,6 @@ input[type='radio']:checked + label span {
   outline: 2px solid #000000;
   outline-offset: 2px;
 }
-/* input[type='radio']:checked + label .red {
-  outline: 2px solid #000000;
-  outline-offset: 2px;
-}
-input[type='radio']:checked + label .orange {
-  outline: 2px solid #000000;
-  outline-offset: 2px;
-}
-input[type='radio']:checked + label .yellow {
-  outline: 2px solid #000000;
-  outline-offset: 2px;
-} */
 
 label {
   display: inline-block;
@@ -45,10 +33,10 @@ label span.yellow {
   background: #fbbd08;
 }
 
-/* Canvas del Modelador  */
+/* Container del Modelador 3D */
 #c {
   width: 100%;
-  height: 100%;
+  height: 30em;
   display: block;
   top: 0;
   left: 0;

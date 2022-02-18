@@ -1,6 +1,6 @@
 var theModel;
 
-const MODEL_PATH = '/modeler/chairDraco.gltf';
+const MODEL_PATH = './modeler/chairDraco.gltf';
 
 const BACKGROUND_COLOR = 0xf1f1f1;
 // Init the scene
@@ -9,17 +9,17 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color(BACKGROUND_COLOR);
 scene.fog = new THREE.Fog(BACKGROUND_COLOR, 20, 100);
 
-const canvas = document.querySelector('#c');
+var container = document.querySelector('#c');
 
 // Init the renderer
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+const renderer = new THREE.WebGLRenderer({ antialias: true });
 
 renderer.shadowMap.enabled = true;
 renderer.setPixelRatio(window.devicePixelRatio);
 
 var cameraFar = 5;
 
-document.body.appendChild(renderer.domElement);
+container.appendChild(renderer.domElement);
 
 // Add a camera
 var camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -39,7 +39,7 @@ const INITIAL_MAP = [
 
 // Init the object loader
 var loader = new THREE.GLTFLoader();
-THREE.DRACOLoader.setDecoderPath('/modeler/draco/gltf/');
+THREE.DRACOLoader.setDecoderPath('./modeler/draco/gltf/');
 loader.setDRACOLoader(new THREE.DRACOLoader());
 
 loader.load(
@@ -69,9 +69,6 @@ loader.load(
     // Add the model to the scene
     scene.add(theModel);
 
-    // Remove the loader
-    // LOADER.remove();
-    console.log(canvas);
   },
   undefined,
   function (error) {
@@ -111,8 +108,8 @@ var floorMaterial = new THREE.MeshPhongMaterial({
   shininess: 0,
 });
 var grid = new THREE.GridHelper(5000, 1000, 0x000000, 0x000000);
-// grid.material.opacity = 0.2;
-// grid.material.transparent = true;
+grid.material.opacity = 0.2;
+grid.material.transparent = true;
 
 var floor = new THREE.Mesh(floorGeometry, floorMaterial);
 floor.rotation.x = -0.5 * Math.PI;
@@ -145,11 +142,6 @@ function animate() {
     camera.aspect = canvas.clientWidth / canvas.clientHeight;
     camera.updateProjectionMatrix();
   }
-
-  // if (theModel != null && loaded == false) {
-  //   initialRotation();
-  //   DRAG_NOTICE.classList.add('start');
-  // }
 }
 
 animate();
@@ -157,11 +149,10 @@ animate();
 // Function - New resizing method
 function resizeRendererToDisplaySize(renderer) {
   const canvas = renderer.domElement;
-  var width = window.innerWidth;
-  var height = window.innerHeight;
+  var width = container.offsetWidth;
+  var height = container.offsetHeight;
   var canvasPixelWidth = canvas.width / window.devicePixelRatio;
   var canvasPixelHeight = canvas.height / window.devicePixelRatio;
-
   const needResize = canvasPixelWidth !== width || canvasPixelHeight !== height;
   if (needResize) {
     renderer.setSize(width, height, false);
