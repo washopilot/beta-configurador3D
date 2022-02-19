@@ -15,7 +15,7 @@ var container = document.querySelector('#c');
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 
 renderer.shadowMap.enabled = true;
-renderer.setPixelRatio(window.devicePixelRatio);
+// renderer.setPixelRatio(window.devicePixelRatio);
 
 var cameraFar = 5;
 
@@ -137,6 +137,7 @@ function animate() {
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
 
+  // renderer.setSize($(container).width(), $(container).height());
   if (resizeRendererToDisplaySize(renderer)) {
     const canvas = renderer.domElement;
     camera.aspect = canvas.clientWidth / canvas.clientHeight;
