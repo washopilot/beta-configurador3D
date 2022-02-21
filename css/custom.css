@@ -17,6 +17,7 @@ label {
   width: 35px;
   height: 35px;
   margin-right: 20px;
+  margin-bottom: 10px;
   cursor: pointer;
 }
 label:hover span {
@@ -27,6 +28,7 @@ label span {
   width: 100%;
   height: 100%;
   transition: transform 0.2s ease-in-out;
+  border: 1px solid #000;
 }
 /* label span.red {
   background: #db2828;

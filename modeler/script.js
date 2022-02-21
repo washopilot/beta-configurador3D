@@ -2,9 +2,17 @@ var theModel;
 
 const MODEL_PATH = './modeler/modelo.gltf';
 
-const TRAY = document.getElementById('tray-slide');
+// const TRAY_1 = document.getElementById('tray-slide');
 
-const colors = [{ color: 'db2828' }, { color: 'f2711c' }, { color: 'fbbd08' }];
+const colors = [
+  { color: '000000' },
+  { color: '0000FF' },
+  { color: '808080' },
+  { color: '008000' },
+  { color: '800080' },
+  { color: 'FF0000' },
+  { color: 'FFFFFF' },
+];
 
 const BACKGROUND_COLOR = 0xf1f1f1;
 // Init the scene
@@ -32,7 +40,7 @@ camera.position.x = 4;
 camera.position.y = 10;
 
 // Initial material
-const INITIAL_MTL = new THREE.MeshPhongMaterial({ color: 0xffffff, shininess: 5 });
+const INITIAL_MTL = new THREE.MeshPhongMaterial({ color: 0xffffff, shininess: 10 });
 
 const INITIAL_MAP = [
   { childID: 'bandejas', mtl: INITIAL_MTL },
@@ -179,16 +187,16 @@ function resizeRendererToDisplaySize(renderer) {
 
 // Function - Build Colors
 
-function buildColors(colors) {
+function buildColors(colors, tray) {
   for (let [i, color] of colors.entries()) {
     // console.log(i, color);
     let swatch1 = document.createElement('input');
     swatch1.setAttribute('type', 'radio');
-    swatch1.setAttribute('name', 'bandeja');
-    swatch1.setAttribute('id', 'bandeja_' + color.name);
+    swatch1.setAttribute('name', 'tray'+ tray);
+    swatch1.setAttribute('id', 'tray' + tray + i);
 
     let swatch2 = document.createElement('label');
-    swatch2.setAttribute('for', 'bandeja_' + color.name);
+    swatch2.setAttribute('for', 'tray' + tray + i);
 
     let span = document.createElement('span');
     // span.classList.add(color.name);
@@ -208,9 +216,13 @@ function buildColors(colors) {
     // swatch.setAttribute('data-key', i);
     // console.log(swatch1);
     // console.log(TRAY);
-    TRAY.append(swatch1);
-    TRAY.append(swatch2);
+    let tray_element = document.getElementById('tray-slide-' + tray);
+    // console.log(tray_element);
+    tray_element.append(swatch1);
+    tray_element.append(swatch2);
   }
 }
 
-buildColors(colors);
+buildColors(colors, 1);
+buildColors(colors, 2);
+buildColors(colors, 3);
