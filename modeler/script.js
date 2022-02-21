@@ -1,6 +1,6 @@
 var theModel;
 
-const MODEL_PATH = './modeler/chairDraco.gltf';
+const MODEL_PATH = './modeler/modelo.gltf';
 
 const TRAY = document.getElementById('tray-slide');
 
@@ -28,17 +28,16 @@ container.appendChild(renderer.domElement);
 // Add a camera
 var camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.z = cameraFar;
-camera.position.x = 2;
+camera.position.x = 4;
+camera.position.y = 10;
 
 // Initial material
-const INITIAL_MTL = new THREE.MeshPhongMaterial({ color: 0xf1f1f1, shininess: 15 });
+const INITIAL_MTL = new THREE.MeshPhongMaterial({ color: 0xffffff, shininess: 5 });
 
 const INITIAL_MAP = [
-  { childID: 'back', mtl: INITIAL_MTL, nickname: 'espaldar' },
-  { childID: 'base', mtl: INITIAL_MTL, nickname: 'base' },
-  { childID: 'cushions', mtl: INITIAL_MTL, nickname: 'cojines' },
-  { childID: 'legs', mtl: INITIAL_MTL, nickname: 'soportes' },
-  { childID: 'supports', mtl: INITIAL_MTL, nickname: 'supports' },
+  { childID: 'bandejas', mtl: INITIAL_MTL },
+  { childID: 'fondos', mtl: INITIAL_MTL },
+  { childID: 'parantes', mtl: INITIAL_MTL },
 ];
 
 // Init the object loader
@@ -59,8 +58,8 @@ loader.load(
     });
 
     // Set the models initial scale
-    theModel.scale.set(2, 2, 2);
-    theModel.rotation.y = Math.PI;
+    theModel.scale.set(0.1, 0.1, 0.1);
+    // theModel.rotation.y = Math.PI;
 
     // Offset the y position a bit
     theModel.position.y = -1;
@@ -81,6 +80,8 @@ loader.load(
 
 // Function - Add the textures to the models
 function initColor(parent, type, mtl) {
+  // console.log(parent, type, mtl);
+
   parent.traverse((o) => {
     if (o.isMesh) {
       if (o.name.includes(type)) {
@@ -92,17 +93,29 @@ function initColor(parent, type, mtl) {
 }
 
 // Add lights
-var hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.61);
+var hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.51);
 hemiLight.position.set(0, 50, 0);
 // Add hemisphere light to scene
 scene.add(hemiLight);
 
 var dirLight = new THREE.DirectionalLight(0xffffff, 0.54);
-dirLight.position.set(-8, 12, 8);
-dirLight.castShadow = true;
-dirLight.shadow.mapSize = new THREE.Vector2(1024, 1024);
+dirLight.position.set(8, 12, 8);
+// dirLight.castShadow = true;
+// dirLight.shadow.mapSize = new THREE.Vector2(1024, 1024);
 // Add directional Light to scene
 scene.add(dirLight);
+// const helper = new THREE.DirectionalLightHelper( dirLight, 5 );
+// scene.add( helper );
+
+const pointLight = new THREE.PointLight(0xffffff, 0.3, 200);
+pointLight.position.set(20, 5, 0);
+scene.add(pointLight);
+// const sphereSize = 1;
+// const pointLightHelper = new THREE.PointLightHelper( pointLight, sphereSize );
+// scene.add( pointLightHelper );
+
+// const ambientLight = new THREE.AmbientLight(0x202020); // soft white light
+// scene.add(ambientLight);
 
 // Floor
 var floorGeometry = new THREE.PlaneGeometry(5000, 5000, 1, 1);
@@ -130,7 +143,7 @@ var controls = new THREE.OrbitControls(camera, renderer.domElement);
 controls.maxPolarAngle = Math.PI / 2;
 controls.minPolarAngle = Math.PI / 3;
 controls.enableDamping = true;
-controls.enablePan = false;
+controls.enablePan = true;
 controls.dampingFactor = 0.1;
 controls.autoRotate = false; // Toggle this if you'd like the chair to automatically rotate
 controls.autoRotateSpeed = 0.2; // 30
@@ -168,7 +181,7 @@ function resizeRendererToDisplaySize(renderer) {
 
 function buildColors(colors) {
   for (let [i, color] of colors.entries()) {
-    console.log(i, color);
+    // console.log(i, color);
     let swatch1 = document.createElement('input');
     swatch1.setAttribute('type', 'radio');
     swatch1.setAttribute('name', 'bandeja');
@@ -193,7 +206,7 @@ function buildColors(colors) {
     // }
 
     // swatch.setAttribute('data-key', i);
-    console.log(swatch1);
+    // console.log(swatch1);
     // console.log(TRAY);
     TRAY.append(swatch1);
     TRAY.append(swatch2);
