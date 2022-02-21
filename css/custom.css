@@ -1,7 +1,7 @@
+/* Estilos de los selectores de color del configurador */
 * {
   touch-action: manipulation;
 }
-
 
 input[type='radio'] {
   display: none;
@@ -28,7 +28,7 @@ label span {
   height: 100%;
   transition: transform 0.2s ease-in-out;
 }
-label span.red {
+/* label span.red {
   background: #db2828;
 }
 label span.orange {
@@ -36,14 +36,12 @@ label span.orange {
 }
 label span.yellow {
   background: #fbbd08;
-}
+} */
 
 /* Container del Modelador 3D */
 #c {
   width: 100%;
   height: 30em;
   display: block;
-  /* top: 0;
-  left: 0; */
   overflow: hidden;
 }

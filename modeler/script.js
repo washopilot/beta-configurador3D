@@ -2,6 +2,10 @@ var theModel;
 
 const MODEL_PATH = './modeler/chairDraco.gltf';
 
+const TRAY = document.getElementById('tray-slide');
+
+const colors = [{ color: 'db2828' }, { color: 'f2711c' }, { color: 'fbbd08' }];
+
 const BACKGROUND_COLOR = 0xf1f1f1;
 // Init the scene
 const scene = new THREE.Scene();
@@ -17,24 +21,24 @@ const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.shadowMap.enabled = true;
 // renderer.setPixelRatio(window.devicePixelRatio);
 
-var cameraFar = 5;
+var cameraFar = 3;
 
 container.appendChild(renderer.domElement);
 
 // Add a camera
 var camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.z = cameraFar;
-camera.position.x = 0;
+camera.position.x = 2;
 
 // Initial material
-const INITIAL_MTL = new THREE.MeshPhongMaterial({ color: 0xf1f1f1, shininess: 10 });
+const INITIAL_MTL = new THREE.MeshPhongMaterial({ color: 0xf1f1f1, shininess: 15 });
 
 const INITIAL_MAP = [
-  { childID: 'back', mtl: INITIAL_MTL },
-  { childID: 'base', mtl: INITIAL_MTL },
-  { childID: 'cushions', mtl: INITIAL_MTL },
-  { childID: 'legs', mtl: INITIAL_MTL },
-  { childID: 'supports', mtl: INITIAL_MTL },
+  { childID: 'back', mtl: INITIAL_MTL, nickname: 'espaldar' },
+  { childID: 'base', mtl: INITIAL_MTL, nickname: 'base' },
+  { childID: 'cushions', mtl: INITIAL_MTL, nickname: 'cojines' },
+  { childID: 'legs', mtl: INITIAL_MTL, nickname: 'soportes' },
+  { childID: 'supports', mtl: INITIAL_MTL, nickname: 'supports' },
 ];
 
 // Init the object loader
@@ -68,7 +72,6 @@ loader.load(
 
     // Add the model to the scene
     scene.add(theModel);
-
   },
   undefined,
   function (error) {
@@ -160,3 +163,41 @@ function resizeRendererToDisplaySize(renderer) {
   }
   return needResize;
 }
+
+// Function - Build Colors
+
+function buildColors(colors) {
+  for (let [i, color] of colors.entries()) {
+    console.log(i, color);
+    let swatch1 = document.createElement('input');
+    swatch1.setAttribute('type', 'radio');
+    swatch1.setAttribute('name', 'bandeja');
+    swatch1.setAttribute('id', 'bandeja_' + color.name);
+
+    let swatch2 = document.createElement('label');
+    swatch2.setAttribute('for', 'bandeja_' + color.name);
+
+    let span = document.createElement('span');
+    // span.classList.add(color.name);
+    span.style.background = '#' + color.color;
+
+    swatch2.append(span);
+
+    // swatch.classList.add('tray__swatch');
+    // swatch.style.background = '#' + color.color;
+
+    // if (color.texture) {
+    //   swatch.style.backgroundImage = 'url(' + color.texture + ')';
+    // } else {
+    //   swatch.style.background = '#' + color.color;
+    // }
+
+    // swatch.setAttribute('data-key', i);
+    console.log(swatch1);
+    // console.log(TRAY);
+    TRAY.append(swatch1);
+    TRAY.append(swatch2);
+  }
+}
+
+buildColors(colors);
