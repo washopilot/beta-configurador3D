@@ -186,17 +186,17 @@ function resizeRendererToDisplaySize(renderer) {
 }
 
 // Function - Build Colors
-
 function buildColors(colors, tray) {
   for (let [i, color] of colors.entries()) {
     // console.log(i, color);
     let swatch1 = document.createElement('input');
     swatch1.setAttribute('type', 'radio');
-    swatch1.setAttribute('name', 'tray'+ tray);
-    swatch1.setAttribute('id', 'tray' + tray + i);
+    swatch1.setAttribute('name', tray);
+    swatch1.setAttribute('id', tray + i);
+    swatch1.setAttribute('value', color.color);
 
     let swatch2 = document.createElement('label');
-    swatch2.setAttribute('for', 'tray' + tray + i);
+    swatch2.setAttribute('for', tray + i);
 
     let span = document.createElement('span');
     // span.classList.add(color.name);
@@ -216,13 +216,41 @@ function buildColors(colors, tray) {
     // swatch.setAttribute('data-key', i);
     // console.log(swatch1);
     // console.log(TRAY);
-    let tray_element = document.getElementById('tray-slide-' + tray);
+    let tray_element = document.getElementById(tray);
     // console.log(tray_element);
     tray_element.append(swatch1);
     tray_element.append(swatch2);
   }
 }
 
-buildColors(colors, 1);
-buildColors(colors, 2);
-buildColors(colors, 3);
+buildColors(colors, 'bandejas');
+buildColors(colors, 'fondos');
+buildColors(colors, 'parantes');
+
+// Escuchas de seleccianamiento j-query
+$(document).ready(function () {
+  $('input[type=radio]').click(function () {
+    // console.log(this.value, this.name);
+    selectSwatch(this.value, this.name);
+  });
+});
+
+// Funcion de seleccion de color
+function selectSwatch(color, activeOption) {
+  let new_mtl;
+  new_mtl = new THREE.MeshPhongMaterial({
+    color: parseInt('0x' + color),
+  });
+  setMaterial(theModel, activeOption, new_mtl);
+}
+
+// Funcion de actualizador de material
+function setMaterial(parent, type, mtl) {
+  parent.traverse((o) => {
+    if (o.isMesh && o.nameID != null) {
+      if (o.nameID == type) {
+        o.material = mtl;
+      }
+    }
+  });
+}
